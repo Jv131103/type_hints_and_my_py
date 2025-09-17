@@ -1,0 +1,11 @@
+Resumindo o SOLID (versão batata)
+
+    S — Cada classe com uma só função.
+
+    O — Fácil adicionar, sem mexer no velho.
+
+    L — Filhos devem respeitar contratos da mãe.
+
+    I — Interfaces pequenas e específicas.
+
+    D — Dependa de ideias (abstrações), não de implementações.
