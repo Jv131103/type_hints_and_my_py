@@ -50,6 +50,16 @@ class MotoTaxi(Veiculo):
         print("Moto taxi buscando cliente...")
 
 
+class MotoTaxiLuxo(Veiculo):
+    def buscar_cliente(self) -> None:
+        print("Moto taxi luxo buscando cliente...")
+
+
+class MotoEntrega(Veiculo):
+    def buscar_cliente(self) -> None:
+        print("Moto entrega buscando cliente...")
+
+
 class VeiculoFactory:
     @staticmethod
     def get_carro(tipo: str) -> Veiculo:
@@ -60,6 +70,10 @@ class VeiculoFactory:
                 return CarroPopular()
             case "moto_taxi":
                 return MotoTaxi()
+            case "moto_taxi_luxo":
+                return MotoTaxiLuxo()
+            case "moto_entrega":
+                return MotoEntrega()
             case _:
                 assert 0, f"O veículo {tipo} não existe!"
 
@@ -67,7 +81,9 @@ class VeiculoFactory:
 if __name__ == "__main__":
     import random
 
-    carros_disponiveis = ["luxo", "popular", "moto_taxi"]
+    carros_disponiveis = [
+        "luxo", "popular", "moto_taxi", "moto_taxi_luxo", 'moto_entrega'
+    ]
     for i in range(10):
         carro = VeiculoFactory().get_carro(random.choice(carros_disponiveis))
         carro.buscar_cliente()
