@@ -62,7 +62,7 @@ class MotoEntrega(Veiculo):
 
 class VeiculoFactory:
     @staticmethod
-    def get_carro(tipo: str) -> Veiculo:
+    def get_carro(tipo: str) -> Veiculo:  # type: ignore
         match tipo.lower():
             case "luxo":
                 return CarroLuxo()
