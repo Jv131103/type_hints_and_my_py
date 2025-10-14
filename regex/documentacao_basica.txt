@@ -1,0 +1,105 @@
+                                Um pouco sobre regex
+
+Regex (Regular Expression) é uma linguagem para buscar padrões em texto.
+
+Pense nela como um "scanner inteligente" que entende formas e estruturas, não apenas palavras.
+
+Exemplo simples:
+
+    import re
+
+    texto = "Meu número é 11987654321"
+    resultado = re.findall(r"\d+", texto)
+    print(resultado)
+
+Saída:
+
+    ['11987654321']
+
+
+PS: \d+ significa “um ou mais dígitos”.
+
+                                Estrutura básica
+
+| Símbolo | Significado                                 | Exemplo   | Casa com...                   |
+| ------- | ------------------------------------------- | --------- | ----------------------------- |
+| `.`     | Qualquer caractere (exceto quebra de linha) | `a.b`     | `acb`, `arb`, `a_b`           |
+| `\d`    | Dígito (0–9)                                | `\d\d`    | `12`, `99`                    |
+| `\w`    | Letra, número ou `_`                        | `\w\w`    | `ab`, `a9`, `_x`              |
+| `\s`    | Espaço (ou tab, quebra de linha)            | `\s+`     | espaço, tabulação             |
+| `^`     | Início da string                            | `^Olá`    | só casa se começar com "Olá"  |
+| `$`     | Fim da string                               | `fim$`    | só casa se terminar com "fim" |
+| `+`     | 1 ou mais                                   | `\d+`     | `1`, `12345`                  |
+| `*`     | 0 ou mais                                   | `\w*`     | `abc`, vazio                  |
+| `?`     | 0 ou 1                                      | `colou?r` | `color` e `colour`            |
+| `{n}`   | exatamente n repetições                     | `\d{3}`   | `123`                         |
+| `{n,}`  | n ou mais repetições                        | `\d{2,}`  | `12`, `123456`                |
+| `{n,m}` | entre n e m repetições                      | `\d{2,4}` | `12`, `1234`                  |
+
+                        Classes de caracteres (colchetes)
+
+| Expressão  | Significado                           | Casa com                |
+| ---------- | ------------------------------------- | ----------------------- |
+| `[aeiou]`  | qualquer vogal                        | `a`, `e`, `i`, `o`, `u` |
+| `[A-Z]`    | letra maiúscula                       | `A` até `Z`             |
+| `[a-zA-Z]` | qualquer letra                        | `a`, `Z`, etc           |
+| `[^0-9]`   | **negação** (tudo que não for número) | `a`, `@`, `?`           |
+
+                        Funções principais do módulo re
+
+| Função         | O que faz                        | Exemplo                                                       |
+| -------------- | -------------------------------- | ------------------------------------------------------------- |
+| `re.match()`   | casa no **início** da string     | `re.match(r"Oi", "Oi tudo bem")`                              |
+| `re.search()`  | procura **em qualquer parte**    | `re.search(r"Oi", "Tudo Oi bem")`                             |
+| `re.findall()` | retorna **todas as ocorrências** | `re.findall(r"\d+", "A1B2C3")` → `['1','2','3']`              |
+| `re.sub()`     | substitui                        | `re.sub(r"\d", "X", "A1B2")` → `"AXBX"`                       |
+| `re.split()`   | divide uma string por regex      | `re.split(r"\s+", "um   dois três")` → `['um','dois','três']` |
+
+                            Âncoras e Fronteiras
+
+Esses servem para controlar onde o padrão é procurado:
+
+| Símbolo | Significado          | Exemplo                              |
+| ------- | -------------------- | ------------------------------------ |
+| `^`     | início da string     | `^oi` casa só se começar com "oi"    |
+| `$`     | fim da string        | `fim$` casa só se terminar com "fim" |
+| `\b`    | fronteira de palavra | `\bpython\b` casa “python” isolado   |
+| `\B`    | **não** é fronteira  | `py\B` casa “pythonico” mas não “py” |
+
+                            Grupos e Capturas
+
+Você pode agrupar partes do padrão entre parênteses e acessá-las:
+
+    import re
+
+    texto = "Meu email é teste123@gmail.com"
+    match = re.search(r"(\w+)@(\w+\.\w+)", texto)
+    print(match.groups())
+
+Saída:
+
+    ('teste123', 'gmail.com')
+
+PS: Aqui:
+
+        (\w+) → nome do usuário,
+
+        (\w+\.\w+) → domínio.
+
+                                Flags úteis
+
+| Flag                      | Descrição                                                 |
+| ------------------------- | --------------------------------------------------------- |
+| `re.IGNORECASE` ou `re.I` | ignora maiúsculas/minúsculas                              |
+| `re.MULTILINE` ou `re.M`  | faz `^` e `$` funcionarem em várias linhas                |
+| `re.DOTALL` ou `re.S`     | faz `.` casar também com `\n`                             |
+| `re.VERBOSE`              | permite escrever regex com quebras de linha e comentários |
+
+Exemplo de uso de flag:
+
+    re.findall(r"python", "Python é legal", flags=re.IGNORECASE)
+    # ['Python']
+
+
+documentação do re do Python: https://docs.python.org/3/library/re.html
+documentação mais "chamativa" do re do Python: https://docs.python.org/3/howto/regex.html#regex-howto
