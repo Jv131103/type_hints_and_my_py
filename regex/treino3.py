@@ -47,3 +47,19 @@ print(re.findall(r"\S+", texto))  # O que não for espaços
 
 # BUSCA ESPAÇOS NO COMEÇO E NO FIM se necessário
 print(re.findall(r"\be\w+", texto, flags=re.I))
+
+
+texto = """
+131.768.460-53
+055.123.060-50
+955.123.060-90
+"""
+
+# BUSCA VALORES MULTILINE
+# PODE TAMBÉM DIGITAR: re.M
+print(re.findall(r"^\d{3}.\d{3}.\d{3}-\d{2}$", texto, flags=re.MULTILINE))
+
+texto = "O João gosta de folia \n E adora ser amado"
+
+# BUSCA TUDO ATÉ COM QUEBRAS DE LINHAS
+print(re.findall(r"^o.*o$", texto, flags=re.I | re.S))
